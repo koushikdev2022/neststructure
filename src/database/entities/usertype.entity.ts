@@ -1,0 +1,20 @@
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+
+@Entity({ name: 'user_types' })
+export class UserType {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
+  name: string;
+
+  @Column({ default: 1 })
+  status: number;
+
+
+  @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
+  created_at: Date;
+
+  @UpdateDateColumn({ name: 'updated_at', type: 'timestamp' })
+  updated_at: Date;
+}
