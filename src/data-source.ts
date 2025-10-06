@@ -1,19 +1,22 @@
-import { DataSource } from 'typeorm';
+// src/database/data-source.ts
+import { DataSource, DataSourceOptions } from 'typeorm';
+import { config } from 'dotenv';
 
-// import { User } from './database/entities/user.entity';
-// import { UserType } from './database/entities/usertype.entity';
-import * as path from 'path';
+config(); // Load .env file
 
-export const AppDataSource = new DataSource({
-    type: 'mysql', // or 'mysql'
-    host: 'localhost',
-    port: 3306,
-    username: 'root',
-    password: '',
-    database: 'testdb',
-    entities: [path.join(__dirname, '/database/entities/*.entity.{ts,js}')],
-    migrations: [path.join(__dirname, '/database/migrations/*.{ts,js}')],
-    // migrations: ['src/migrations/*.ts'],
-    synchronize: false,
-    
-});
+export const dataSourceOptions: DataSourceOptions = {
+  type: 'mysql', // or 'postgres', 'sqlite', etc.
+  host: process.env.DB_HOST || 'localhost',
+  port:  3306,
+  username: process.env.DB_USERNAME || 'root',
+  password: process.env.DB_PASSWORD || '',
+  database: process.env.DB_DATABASE || 'nestdb',
+  entities: ['dist/**/*.entity.js'],
+  migrations: ['dist/database/migrations/*.js'],
+  synchronize: false, // Always false in production
+  logging: true,
+};
+
+const dataSource = new DataSource(dataSourceOptions);
+
+export default dataSource;
