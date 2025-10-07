@@ -1,8 +1,8 @@
- npm run migration:run
+npm run migration:run
 
- npm run migration:create -- ./src/migrations/AddStatusToUser 
+npm run migration:create -- ./src/migrations/AddStatusToUser 
  
- npm run migration:create -- ./src/migrations/CreateUser
+npm run migration:create -- ./src/migrations/CreateUser
 npx typeorm migration:create ./src/database/seeders/UserTypeSeeder
 
 
@@ -12,9 +12,9 @@ original
 npm run typeorm migration:create src/database/migrations/CreateProductTable
 npm run migration:run
 npm run seed
+npm run seed:generate Permission
 
-
- npm install --save @nestjs/typeorm typeorm pg
+npm install --save @nestjs/typeorm typeorm pg
 # Generates TypeORM migration files for all entities automatically based on schema changes
 npx typeorm migration:generate -d src/data-source.ts ./src/database/migrations/CreateAllEntities
 
