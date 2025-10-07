@@ -10,11 +10,7 @@ interface Seeder {
 const seeders: Seeder[] = [
   new UserTypeSeeder(),
   
-  
-  // Add more seeders here
- 
-  // new RoleSeeder(),
-  // new PermissionSeeder(),
+
 ];
 
 async function runSeeders() {
