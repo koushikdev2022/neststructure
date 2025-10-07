@@ -17,13 +17,15 @@ export class AuthService {
      const existingUser = await this.userRepository.find({
         where:[{
             status:1
-        }]
+        }],
+        relations: ['role']
      });
+     const convertDTO =plainToInstance(UserResponseDto, existingUser)
      return res.status(200).json({
         "message":"data found",
         "status_code":200,
         "status":false,
-        "data":plainToInstance(UserResponseDto, existingUser)
+        "data":convertDTO
      }) 
     
   }
