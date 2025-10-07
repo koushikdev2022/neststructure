@@ -4,6 +4,8 @@ import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { User } from '../../database/entities/user.entity';
 import { CreateUserDto } from './dto/createUser.dto';
+import { UserResponseDto } from './dto/userResponse.dto';
+import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class AuthService {
@@ -11,6 +13,20 @@ export class AuthService {
         @InjectRepository(User)
         private readonly userRepository: Repository<User>,
   ) {}
+  async list(res):Promise<any>{
+     const existingUser = await this.userRepository.find({
+        where:[{
+            status:1
+        }]
+     });
+     return res.status(200).json({
+        "message":"data found",
+        "status_code":200,
+        "status":false,
+        "data":plainToInstance(UserResponseDto, existingUser)
+     }) 
+    
+  }
   async register(createUserDto: CreateUserDto , res): Promise<any> {
     const { email, phone, password } = createUserDto;
     const existingUser = await this.userRepository.findOne({
