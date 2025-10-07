@@ -2,7 +2,7 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { config } from 'dotenv';
 
-config(); // Load .env file
+config(); 
 
 export const dataSourceOptions: DataSourceOptions = {
   type: 'mysql', // or 'postgres', 'sqlite', etc.
@@ -11,9 +11,11 @@ export const dataSourceOptions: DataSourceOptions = {
   username: process.env.DB_USERNAME || 'root',
   password: process.env.DB_PASSWORD || '',
   database: process.env.DB_DATABASE || 'nestdb',
-  entities: ['dist/**/*.entity.js'],
-  migrations: ['dist/database/migrations/*.js'],
-  synchronize: false, // Always false in production
+  // entities: ['dist/**/*.entity.js'],
+  // migrations: ['dist/database/migrations/*.js'],
+  entities: [__dirname + '/database/**/*.entity.ts'], 
+  migrations: [__dirname + '/database/migrations/*.ts'],
+  synchronize: false, 
   logging: true,
 };
 
